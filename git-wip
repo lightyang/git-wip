@@ -232,6 +232,7 @@ do_log () {
 	local graph=""
 	local pretty=""
 	local stat=""
+  local patch=""
 	while [ -n "$1" ]
 	do
 		case "$1" in
@@ -245,6 +246,9 @@ do_log () {
 			-r|--reflog)
 				log_cmd="reflog"
 				;;
+      -u|--patch)
+        patch="--patch"
+        ;;
 			*)
 				break
 				;;
@@ -254,7 +258,7 @@ do_log () {
 
 	if [ $log_cmd = reflog ]
 	then
-		echo git reflog $stat $pretty $wip_branch | sh
+		echo git reflog $patch $stat $pretty $wip_branch | sh
 		return $?
 	fi
 
@@ -276,7 +280,7 @@ do_log () {
 
 	dbg base=$base
 
-	echo git log $graph $stat $pretty $@ $wip_last $work_last "^$base~1" | sh
+	echo git log $patch $graph $stat $pretty $@ $wip_last $work_last "^$base~1" | sh
 }
 
 do_delete () {
