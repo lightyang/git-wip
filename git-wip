@@ -161,6 +161,7 @@ do_save () {
 	dbg "files=$files"
 
 	local work_branch=$(get_work_branch)
+  [[ work_branch == '' ]] || exit 0
 	local wip_branch="$WIP_PREFIX$work_branch"
 
 	dbg "work_branch=$work_branch"
